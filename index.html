@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dani V @ 25!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        /* Custom Pointer CSS */
+        body, button, input, a { 
+            cursor: url('pointer.png'), auto !important; 
+        }
+        body { font-family: 'Outfit', sans-serif; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        .glass { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px); }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-rose-100 via-pink-200 to-red-100 min-h-screen text-gray-800 flex flex-col justify-between selection:bg-rose-400 selection:text-white">
+
+    <header class="w-full py-6 px-6 text-center">
+        <span class="text-rose-600 font-semibold uppercase tracking-widest text-xs bg-rose-100 px-3 py-1 rounded-full border border-rose-200">October 13th Special</span>
+    </header>
+
+    <main class="max-w-md w-full mx-auto px-6 mb-12">
+        
+        <div id="scanner-card" class="glass p-8 rounded-3xl shadow-2xl border border-white/50 text-center transition-all duration-500">
+            <div class="w-16 h-16 bg-rose-500 rounded-2xl mx-auto mb-6 animate-pulse p-1 overflow-hidden shadow-lg shadow-rose-500/30">
+                <img src="lock.png" alt="Love Lock" class="w-full h-full object-cover rounded-xl">
+            </div>
+            
+            <h1 class="font-serif text-3xl font-bold text-gray-900 mb-2">Access Portal</h1>
+            <p class="text-gray-600 text-sm mb-6">Please enter her name to unlock your surprise.</p>
+            
+            <div class="space-y-4">
+                <input type="text" id="name-input" placeholder="Enter her name..." class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-rose-500 text-center font-medium text-lg bg-white/80 text-gray-900">
+                <button onclick="verifyName()" class="w-full bg-gradient-to-r from-rose-500 to-pink-600 text-white py-3 rounded-xl font-semibold shadow-lg shadow-rose-500/30 hover:opacity-95 transition active:scale-95">
+                    Type Name to Unlock 🗝️
+                </button>
+            </div>
+            <p id="error-msg" class="text-rose-600 text-xs mt-3 hidden font-medium">Hmm, that's not her name! Try again ❤️</p>
+        </div>
+
+        <div id="surprise-content" class="hidden space-y-6">
+            
+            <div class="glass p-8 rounded-3xl shadow-2xl border border-white/50 text-center relative overflow-hidden">
+                <div class="absolute -top-10 -right-10 w-32 h-32 bg-rose-300 rounded-full blur-2xl opacity-50"></div>
+                <h2 id="greeting-title" class="font-serif text-3xl font-bold text-gray-900 mb-2">Happy Birthday, Danniela! 🎉</h2>
+                <p class="text-rose-600 font-medium text-sm mb-6">To the most amazing girl in the world</p>
+                
+                <div class="bg-white/60 p-4 rounded-2xl border border-white shadow-sm mb-6">
+                    <p class="text-xs uppercase tracking-wider text-gray-500 font-semibold mb-2">Time until October 13 / Celebration Mode</p>
+                    <div id="countdown" class="grid grid-cols-4 gap-2 text-center">
+                        <div><span id="days" class="text-xl font-bold text-rose-600">00</span><span class="block text-[10px] text-gray-500">Days</span></div>
+                        <div><span id="hours" class="text-xl font-bold text-rose-600">00</span><span class="block text-[10px] text-gray-500">Hours</span></div>
+                        <div><span id="mins" class="text-xl font-bold text-rose-600">00</span><span class="block text-[10px] text-gray-500">Mins</span></div>
+                        <div><span id="secs" class="text-xl font-bold text-rose-600">00</span><span class="block text-[10px] text-gray-500">Secs</span></div>
+                    </div>
+                    
+                    <div id="cake-container" class="hidden mt-4 pt-4 border-t border-rose-100 text-center">
+                        <div class="text-6xl mb-2 animate-bounce">🎂</div>
+                        <div class="inline-block bg-gradient-to-r from-rose-500 to-pink-600 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-md mb-3">
+                            Make a wish, Dani V! ✨
+                        </div>
+                        <div>
+                            <button onclick="playCustomSong()" class="bg-gray-900 text-white text-xs px-4 py-2 rounded-full font-medium hover:bg-gray-800 transition active:scale-95 shadow-md">
+                                ▶ Play Birthday Song 🎵
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-left bg-rose-50/60 p-5 rounded-2xl border border-rose-100 text-sm text-gray-700 leading-relaxed italic mb-6">
+                    "Happy birthday! May Your 25th year be filled with love, laughter, and endless joy with cum. You deserve all the happiness in the world. Here's to many more beautiful memories together! 🖤"
+                </div>
+
+                <button onclick="triggerConfetti()" class="w-full bg-rose-600 text-white py-3 rounded-xl font-semibold shadow-md hover:bg-rose-700 transition">
+                    Celebrate! 🎊
+                </button>
+            </div>
+
+            <div class="glass p-6 rounded-3xl shadow-xl border border-white/50 text-center">
+                <h3 class="font-serif text-xl font-bold mb-3 text-gray-900">Little Things I Love About You</h3>
+                <div id="reason-box" class="bg-white/80 p-4 rounded-2xl text-gray-700 text-sm font-medium min-h-[70px] flex items-center justify-center shadow-inner mb-4">
+                    Click the button below to reveal a reason...
+                </div>
+                <button onclick="nextReason()" class="bg-gray-900 text-white text-xs px-4 py-2.5 rounded-full font-medium hover:bg-gray-800 transition">
+                    The Reason
+                </button>
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer class="text-center py-4 text-xs text-gray-600 font-medium">
+        Made with all Love and Horniness (and a bit of ai, im not proud, im sorry)
+    </footer>
+
+    <script>
+        const allowedNames = [
+            "dani",
+            "danniela",
+            "danniela aubrey s. valla",
+            "aubrey",
+            "danniela aubrey",
+            "dan"
+        ];
+
+        const unlockSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2870/2870-preview.mp3');
+        const customBirthdaySong = new Audio('birthday-song.m4a');
+        const popSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2003/2003-preview.mp3');
+        let birthdayTriggered = false;
+
+        function verifyName() {
+            const input = document.getElementById('name-input').value.trim().toLowerCase();
+            const errorMsg = document.getElementById('error-msg');
+            
+            if (allowedNames.includes(input)) { 
+                unlockSound.play().catch(e => console.log("Audio play prevented", e));
+                document.getElementById('scanner-card').classList.add('scale-95', 'opacity-0');
+                setTimeout(() => {
+                    document.getElementById('scanner-card').classList.add('hidden');
+                    const surprise = document.getElementById('surprise-content');
+                    surprise.classList.remove('hidden');
+                    surprise.classList.add('animate-fade-in');
+                    triggerConfetti();
+                }, 400);
+            } else {
+                errorMsg.classList.remove('hidden');
+            }
+        }
+
+        const targetDate = new Date("October 13, 2026 00:00:00").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+                document.getElementById("countdown").innerHTML = "<div class='col-span-4 text-rose-600 font-bold text-sm'>It's October 13th! Happy Birthday, Danniela! 🥳</div>";
+                document.getElementById("cake-container").classList.remove("hidden");
+                
+                if (!birthdayTriggered) {
+                    customBirthdaySong.play().catch(e => console.log("Auto-play blocked by browser; click button to play", e));
+                    birthdayTriggered = true;
+                    triggerConfetti();
+                }
+                return;
+            }
+
+            document.getElementById("days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
+            document.getElementById("hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById("mins").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            document.getElementById("secs").innerText = Math.floor((distance % (1000 * 60)) / 1000);
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        function playCustomSong() {
+            customBirthdaySong.currentTime = 0;
+            customBirthdaySong.play().catch(e => console.log("Audio play error", e));
+            triggerConfetti();
+        }
+
+        function triggerConfetti() {
+            popSound.currentTime = 0;
+            popSound.play().catch(e => console.log("Audio play prevented", e));
+
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        }
+
+        const reasons = [
+            "You love me.",
+            "You make my heart feel like a summer.",
+            "You are my best friend.",
+            "Your smile.",
+            "You understand not just me, but also everything.",
+            "You are my safe place.",
+            "You are my home.",
+            "You are my favorite hello and hardest goodbye(because i always sleep).",
+            "You are my everything.",
+            "I love You because You are You.",
+            "You are My God.",
+            "My Savior."
+        ];
+        let currentReasonIdx = 0;
+        function nextReason() {
+            currentReasonIdx = (currentReasonIdx + 1) % reasons.length;
+            const box = document.getElementById('reason-box');
+            box.style.opacity = 0;
+            setTimeout(() => {
+                box.innerText = reasons[currentReasonIdx];
+                box.style.opacity = 1;
+            }, 150);
+        }
+    </script>
+</body>
+</html>
